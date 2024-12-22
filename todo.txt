@@ -1,0 +1,24 @@
+
+    todo build another classification model to test the robustness
+    todo edit model and modelmanager logic to accomadate for ncnn 
+    todo create new gitrepo
+    todo integrate the ultralytics script into the app
+        update requirements.txt
+    todone have the modelmanager definition more implicit
+
+    todone create one central config manager. this will pass in the correct
+     config object to the corresponding manager
+        todone get workflow with new config logic
+        create new configs for model manager and stream manager
+        have everything deal with config objects
+        check to see if the check logic is working
+        todone edit the populate config logic. move to config loader
+    todone add batch support
+        mqtt DONE
+        inference manager DONE
+    todone rework the datapackage class follow the structure compenents and manager
+        create a new datapackage, detectionpackage
+        will need to update some syntax in the model config.. to implicty initialize
+
+
+
