@@ -1,7 +1,4 @@
 from datetime import datetime
-
-from fontTools.misc.timeTools import timestampNow
-
 from model_logic.base_classes.postprocessor import PostprocessorBase
 import numpy as np
 import supervision as sv

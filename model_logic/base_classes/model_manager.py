@@ -1,5 +1,6 @@
 from annotator.detections.detections_annotator import FrameAnnotatorDetections
 from app.base_classes.manager import BaseManager
+from model_logic.yolo.model.yolo_ncnn_model import YoloNcnnModel
 from utils.configs.config_base import Config
 from model_logic.yolo.model.yolo_model import YOLOModel
 import numpy as np
@@ -16,7 +17,8 @@ class ModelManager(BaseManager):
         self.preprocessor = None
         self.postprocessor = None
         self.annotator = None
-        self.model_factory = {'YoloModel': YOLOModel}
+        self.model_factory = {'YoloModel': YOLOModel,
+                              'YoloNCNNModel': YoloNcnnModel,}
         self.annotator_factory = {'DetectionAnnotator': FrameAnnotatorDetections}
         self.confidence_threshold = None
         self.model = None
@@ -29,8 +31,8 @@ class ModelManager(BaseManager):
         """
         pass
 
-    def set_pre_post_processors(self, *args):
-        raise NotImplementedError ("must implement set post and preprocessor")
+    # def set_pre_post_processors(self, *args):
+    #     raise NotImplementedError ("must implement set post and preprocessor")
 
     def populate_with_config(self, config: Config):
         """
