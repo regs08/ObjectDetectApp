@@ -1,5 +1,4 @@
 import yaml
-import os
 
 from utils.factories.config_factory import ConfigFactory
 from utils.configs.config_base import Config
