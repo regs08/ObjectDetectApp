@@ -10,7 +10,6 @@ class ConfigFactory:
         """
         self.configs = {
             "AppManager": AppManagerConfig,
-            "InferenceManager": InferenceManagerConfig,
             "StreamManager": StreamManagerConfig,
             "ModelManager": ModelManagerConfig,
             "MqttManager": MqttManagerConfig,
