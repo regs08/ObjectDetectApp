@@ -101,7 +101,7 @@ class AppManager(BaseManager):
         self.inference_running = True
 
         # Threads for stream management and output processing we pass in model manager for inference
-        self.stream_thread = threading.Thread(target=self.stream_manager.run, )
+        self.stream_thread = threading.Thread(target=self.stream_manager.run, args=(self.model_manager,))
         self.output_thread = threading.Thread(target=self._process_output)
 
         # Start the threads
