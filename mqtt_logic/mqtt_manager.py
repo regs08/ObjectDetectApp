@@ -1,9 +1,12 @@
 from app.base_classes.manager import BaseManager
-from mqtt_logic.mqtt_client import MQTTClient
+from utils.factories.mqtt_client_factory import MqttClientFactory
 import threading
 from queue import Empty
 import time
 import json
+import os
+
+from utils.configs.config_manager import ConfigManager
 
 
 class MQTTManager(BaseManager):
@@ -12,15 +15,30 @@ class MQTTManager(BaseManager):
         Initialize the MQTTManager with an MQTTClient instance.
         """
         super().__init__()
-        self.mqtt_client = MQTTClient()
-        self.client = self.mqtt_client.client
-        self.is_connected = False
+        self.mqtt_client = None
+        self.client = None
 
+        self.is_connected = False
+        self.config_manager = ConfigManager()
         # Thread management
         self._stop_event = threading.Event()
         self.batching_thread = None
-
+        self.client_factory = MqttClientFactory()
     def initialize(self, mqtt_config):
+        print(type(mqtt_config))
+        if isinstance(mqtt_config, str):
+            assert os.path.exists(mqtt_config), "Path not found: {}".format(mqtt_config)
+            mqtt_config = self.config_manager.create_config_object(config_type="MqttManager",
+                                                                   config_path=mqtt_config )
+        # get the client type from the config
+        mqtt_client_type = mqtt_config.get('client_type')
+        # create client class from config type
+        self.mqtt_client = self.client_factory.clients[mqtt_client_type]()
+        # assign the class' client to the managers client for readability
+        self.client = self.mqtt_client.client
+
+        # initialize client
+        print('Loading', mqtt_config)
         self.mqtt_client.initialize(mqtt_config)
 
     def run(self):
