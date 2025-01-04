@@ -1,0 +1,4 @@
+StreamManager:
+  params:
+    stream_type: "camera"
+    source: 0

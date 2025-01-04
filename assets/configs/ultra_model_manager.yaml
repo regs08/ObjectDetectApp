@@ -1,0 +1,8 @@
+ModelManager:
+  params:
+    model_path: "/Users/cole/PycharmProjects/liteRT_test/assets/detection_models/yolo11n_ncnn_model"
+    class_labels: "/Users/cole/PycharmProjects/liteRT_test/assets/label_files/coco_classes.txt"
+    model: "YoloNCNNModel"
+    confidence_threshold: 0.5
+    annotator: "DetectionAnnotator"
+    type: "YoloModelManager"

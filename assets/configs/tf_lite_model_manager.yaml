@@ -1,0 +1,8 @@
+ModelManager:
+  params:
+    model_path: "/Users/cole/PycharmProjects/liteRT_test/assets/detection_models/yolov10n_saved_model/yolov10n_float16.tflite"
+    class_labels: "/Users/cole/PycharmProjects/liteRT_test/assets/label_files/coco_classes.txt"
+    model: "YoloModel"
+    confidence_threshold: 0.5
+    annotator: "DetectionAnnotator"
+    type: "YoloModelManager"
