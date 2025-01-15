@@ -28,4 +28,5 @@ class ModelManagerConfig(Config):
 class YoloNCNNConfig(Config):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.required_params = ["model_path", "confidence_threshold", "class_labels", "type", "preprocessor", "postprocessor"]
+        self.required_params = ["model_path", "confidence_threshold", "class_labels",
+                                "type", "preprocessor", "postprocessor", 'task']
