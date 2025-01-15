@@ -32,7 +32,7 @@ class YOLOPostprocessor(PostprocessorBase):
 
         self.class_labels = class_labels
 
-    def process_output(self, output_data, original_dims) -> sv.Detections:
+    def postprocess(self, output_data, original_dims) -> sv.Detections:
         """
         Process the model's raw output into human-readable predictions with bounding boxes.
         :param output_data: data from model

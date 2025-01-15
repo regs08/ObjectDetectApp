@@ -3,6 +3,16 @@ from PIL import Image
 from model_logic.base_classes.preprocessor import PreprocessorBase
 
 class YOLOPreprocessor(PreprocessorBase):
+    def __init__(self):
+        super().__init__()
+        self.input_shape = None
+    def initialize(self, input_shape):
+        """
+        used to intialize in the given model. We intialize it later so we can add the input shape easier
+        :param input_shape:
+        :return:
+        """
+        self.input_shape = input_shape
     def load_image(self, image):
         """
         Load an image from a file path or a NumPy array, and return a PIL Image object.
