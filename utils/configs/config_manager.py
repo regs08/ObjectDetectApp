@@ -22,26 +22,42 @@ class ConfigManager:
         with open(path, 'r') as f:
             return yaml.safe_load(f)
 
-    def create_config_object(self, config_type, config_path=None, config_dict=None) -> Config:
+    def create_config_object(self, config_path=None, config_dict=None) -> Config:
         """
         Create a corresponding config object from a YAML file or dictionary.
 
         Args:
-            config_type (str): The type of configuration to create.
             config_path (str, optional): The path to the YAML file for this configuration.
             config_dict (dict, optional): The dictionary to initialize the configuration.
 
         Returns:
             Config: An instance of the configuration class created by the ConfigFactory.
-        """
-        if config_path and config_dict:
-            raise ValueError("Provide only one of config_path or config_dict, not both.")
-        if config_path:
-            # Remove nested structure if loading from a file
-            config_dict = self.load_config(config_path).get(config_type, {})
-        if not config_dict and not config_path:
-            raise ValueError("A valid configuration dictionary or path is is required. ")
 
-        config_obj = self.config_factory.create_config(config_type, config_dict)
-        config_obj.check_required_params()
-        return config_obj
+        Raises:
+            ValueError: If neither `config_path` nor `config_dict` is provided, or if the `type` field is missing.
+        """
+        if not config_path and not config_dict:
+            raise ValueError("Provide either `config_path` or `config_dict`.")
+
+        # Load configuration from file if a path is provided
+        if config_path:
+            try:
+                config_dict = self.load_config(config_path)
+            except Exception as e:
+                raise ValueError(f"Failed to load configuration from {config_path}: {e}")
+
+        # Validate and extract the config type
+        if not isinstance(config_dict, dict):
+            raise ValueError("The configuration must be a dictionary.")
+        config_type = config_dict['type']
+        if not config_type:
+            raise ValueError("The `type` field is missing from the configuration.")
+
+        # Debug output (replace with logging if needed)
+        print(f"Loaded config type: {config_type}")
+        print(f"Config dictionary: {config_dict}")
+
+        # Create and return the configuration object
+        return self.config_factory.create_config(config_type, config_dict)
+
+
