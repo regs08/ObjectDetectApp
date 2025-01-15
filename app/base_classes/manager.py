@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 from threading import Thread, Event
 
+from utils.configs.config_manager import ConfigManager
+from utils.factories.annotator_factory import AnnotatorFactory
+
 
 class BaseManager(ABC):
     def __init__(self):
@@ -8,6 +11,9 @@ class BaseManager(ABC):
         self.set_name()
         self.config = None
         self.running = Event()
+        self.config_manager= ConfigManager()
+        self.annotator_factory = AnnotatorFactory()
+
         if self.name is None:
             raise NotImplementedError('self.name has not been implemented yet.')
 
@@ -24,14 +30,6 @@ class BaseManager(ABC):
         Fill in the `name` attribute of the class.
         """
         pass
-
-
-    # def load_config(self, config) -> list[Config]:
-    #     """
-    #     Load configuration from a json file, dict or Config object. returns a list of all old_configs present.
-    #     :param config: Path to the object o create the config from .
-    #     """
-    #     return self.config_loader.initialize_config(config)
 
     @abstractmethod
     def run(self, *args):
