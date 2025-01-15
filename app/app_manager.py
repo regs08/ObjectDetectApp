@@ -5,7 +5,6 @@ from queue import Empty, Queue
 import threading
 
 from model_logic.base_classes.model_manager import ModelManager
-from utils.factories.model_manager_factory import ModelManagerFactory
 
 from utils.data_package.yolo_det_data_package import YoloDetectionDataPackage
 from mqtt_logic.mqtt_manager import MQTTManager
@@ -30,7 +29,7 @@ class AppManager(BaseManager):
         self.config_manager = ConfigManager()
 
         # type of model manager. define the type from config
-        self.model_manager = ModelManager
+        self.model_manager = ModelManager()
         self.model_manager_config = ModelManagerConfig()
 
         self.stream_manager = StreamManager()
@@ -63,12 +62,9 @@ class AppManager(BaseManager):
 
     def initialize_managers(self):
 
-        manager_type = self.model_manager_config.get("type")
-        self.model_manager = ModelManagerFactory.create_model_manager(manager_type)
-
         self.model_manager.initialize(self.model_manager_config)
         self.stream_manager.initialize(self.stream_manager_config)
-        self.mqtt_manager.initialize(self.mqtt_manager_config)
+        self.mqtt_manager.initialize(self.mqtt_manager_config, client_type='Sender')
 
     def create_and_check_config_objects(self, config_path):
         """
@@ -76,21 +72,17 @@ class AppManager(BaseManager):
         :param config_path:
         :return:
         """
-        self.config = self.config_manager.create_config_object(config_type="AppManager",
-                                                               config_path=config_path)
+        self.config = self.config_manager.create_config_object(config_path=config_path)
 
         self.model_manager_config = self.config_manager.create_config_object(
-            config_type="ModelManager",
             config_path=self.config.get('ModelManager'))
 
         self.stream_manager_config = self.config_manager.create_config_object(
-            config_type="StreamManager",
             config_path=self.config.get('StreamManager'))
 
         self.mqtt_manager_config = self.config_manager.create_config_object(
-            config_type="MqttManager",
-            config_path=self.config.get('MqttManager')
-        )
+            config_path=self.config.get('MqttManager'))
+
     def set_name(self):
         self.name = "AppManager"
 
