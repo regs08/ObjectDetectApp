@@ -1,6 +1,0 @@
-MqttManager:
-  params:
-    host: 'localhost'
-    port: 1883
-    topic: 'test/topic'
-    client_type: 'sender'
