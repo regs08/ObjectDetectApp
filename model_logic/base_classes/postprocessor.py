@@ -10,24 +10,34 @@ class PostprocessorBase(ABC):
         self.class_labels = class_labels
         self.conf_threshold = conf_threshold
 
-    @staticmethod
-    @abstractmethod
-    def load_class_labels(source):
+    def load_class_labels(self, source):
         """
-        Abstract method to load class labels from a file or directly from a list.
+        Load class labels from a file or directly from a list.
         :param source: Either a path to a .txt file or a list of class labels.
         :return: List of class labels.
         """
-        pass
+        if isinstance(source, str):  # If a file path is provided
+            if not source.endswith(".txt"):
+                raise ValueError("Unsupported file format. Only .txt files are supported.")
+            with open(source, "r") as f:
+                class_labels = [line.strip() for line in f.readlines()]
+        elif isinstance(source, list):  # If a list of labels is provided directly
+            class_labels = source
+        else:
+            raise ValueError("Source must be a file path (str) or a list of labels.")
+
+        self.class_labels = class_labels
 
     @abstractmethod
-    def process_output(self, output_data, orginal_dims):
+    def postprocess(self, **args):
         """
         Abstract method to process the model's raw output into human-readable predictions.
-        :param output_data: Raw output from the model.
+        :param args: Raw output from the model.
         :return: List of predictions (label, confidence).
         """
         pass
+    def annotate_frame(self, frame, detections, annotator):
+        raise NotImplementedError("Must implement annotate frame in postprocessor.")
     def initialize(self, class_labels):
         self.load_class_labels(class_labels)
 
