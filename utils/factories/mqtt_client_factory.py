@@ -5,6 +5,6 @@ from mqtt_logic.sender_mqtt_client import SenderMQTTClient
 class MqttClientFactory:
     def __init__(self):
         self.clients = {
-            'sender': SenderMQTTClient,
-            'logger': LoggingMQTTClient
+            'Sender': SenderMQTTClient,
+            'Logger': LoggingMQTTClient
         }
