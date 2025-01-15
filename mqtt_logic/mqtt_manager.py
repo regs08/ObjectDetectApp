@@ -8,7 +8,6 @@ import os
 
 from utils.configs.config_manager import ConfigManager
 
-
 class MQTTManager(BaseManager):
     def __init__(self):
         """
@@ -24,16 +23,15 @@ class MQTTManager(BaseManager):
         self._stop_event = threading.Event()
         self.batching_thread = None
         self.client_factory = MqttClientFactory()
-    def initialize(self, mqtt_config):
+
+    def initialize(self, mqtt_config, client_type='Sender'):
         print(type(mqtt_config))
         if isinstance(mqtt_config, str):
             assert os.path.exists(mqtt_config), "Path not found: {}".format(mqtt_config)
-            mqtt_config = self.config_manager.create_config_object(config_type="MqttManager",
-                                                                   config_path=mqtt_config )
+            mqtt_config = self.config_manager.create_config_object(config_path=mqtt_config)
         # get the client type from the config
-        mqtt_client_type = mqtt_config.get('client_type')
         # create client class from config type
-        self.mqtt_client = self.client_factory.clients[mqtt_client_type]()
+        self.mqtt_client = self.client_factory.clients[client_type]()
         # assign the class' client to the managers client for readability
         self.client = self.mqtt_client.client
 
