@@ -14,8 +14,7 @@ class AppManagerConfig(Config):
 class MqttManagerConfig(Config):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.required_params = ["host", "port", "topic"]
-
+        self.required_params = ["client_types"]
 
 class StreamManagerConfig(Config):
     def __init__(self, **kwargs):
@@ -25,5 +24,8 @@ class StreamManagerConfig(Config):
 class ModelManagerConfig(Config):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.required_params = ["model", "model_path", "confidence_threshold", "class_labels",
-                                "annotator"]
+        self.required_params = ["model_config_path"]
+class YoloNCNNConfig(Config):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.required_params = ["model_path", "confidence_threshold", "class_labels", "type", "preprocessor", "postprocessor"]
