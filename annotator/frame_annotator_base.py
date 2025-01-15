@@ -12,13 +12,14 @@ class FrameAnnotatorBase(ABC):
         self.is_initialized = False
 
     @abstractmethod
-    def annotate_frame(self,results: sv.Detections, frame: np.ndarray):
+    def annotate_frame(self,frame: np.ndarray, detections: sv.Detections, labels):
         """
         Abstract method to annotate a frame.
         This method must be implemented by subclasses of frame_annotator.
 
+        :param detections: results obtained from a model
         :param frame: The frame to be annotated.
-        :param results: results obtained from a model
+
         """
         pass
     @abstractmethod
