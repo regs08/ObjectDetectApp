@@ -1,5 +1,6 @@
-AppManager:
-  params:
-    MqttManager: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/configs/mqtt_manager_sender.yaml"
-    ModelManager: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/configs/tf_lite_model_manager.yaml"
+# App Manager Config
+params:
+    MqttManager: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/configs/mqtt_manager.yaml"
+    ModelManager: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/configs/ultra_model_manager.yaml"
     StreamManager: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/configs/stream_manager.yaml"
+type: "AppManager"

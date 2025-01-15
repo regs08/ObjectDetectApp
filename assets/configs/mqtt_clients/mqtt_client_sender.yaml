@@ -1,0 +1,6 @@
+# MQTT manager Sender
+params:
+  host: 'localhost'
+  port: 1883
+  topic: 'test/topic'
+type: 'Sender'

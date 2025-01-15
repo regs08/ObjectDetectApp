@@ -1,0 +1,6 @@
+# MQTT manager logger
+params:
+  host: 'localhost'
+  port: 1883
+  topic: 'test/topic'
+type: 'Logger'

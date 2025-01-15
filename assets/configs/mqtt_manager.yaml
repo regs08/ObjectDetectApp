@@ -1,0 +1,6 @@
+# Mqtt Manager
+params:
+  #client types
+  sender: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/configs/mqtt_clients/mqtt_client_logger.yaml"
+  logger: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/configs/mqtt_clients/mqtt_client_sender.yaml"
+type: "MqttManager"
