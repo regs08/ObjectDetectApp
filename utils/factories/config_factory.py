@@ -13,6 +13,7 @@ class ConfigFactory:
             "StreamManager": StreamManagerConfig,
             "ModelManager": ModelManagerConfig,
             "MqttManager": MqttManagerConfig,
+            "YoloNCNNModel": YoloNCNNConfig,
         }
 
     def create_config(self, config_type, config_dict: dict) -> Config:
