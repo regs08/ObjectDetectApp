@@ -1,0 +1,11 @@
+# YOLO NCNN model config
+params:
+  model_path: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/detection_models/yolo11n_ncnn_model"
+  type: "YoloNCNNModel"
+  class_labels: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/label_files/coco_classes.txt"
+  annotator: "DetectionAnnotator"
+  preprocessor: "YoloNcnnPreprocessor"
+  postprocessor: "YoloNcnnPostprocessor"
+  confidence_threshold: 0.5
+  task: 'detect'
+type: YoloNCNNModel
