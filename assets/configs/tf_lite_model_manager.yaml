@@ -5,4 +5,3 @@ ModelManager:
     model: "YoloModel"
     confidence_threshold: 0.5
     annotator: "DetectionAnnotator"
-    type: "YoloModelManager"
