@@ -2,6 +2,12 @@ from ai_edge_litert.interpreter import Interpreter
 from model_logic.base_classes.model_base import ModelBase
 import cv2
 from supervision.detection.core import Detections
+
+from model_logic.yolo.postprocessing.yolo_postprocessor import YOLOPostprocessor
+from model_logic.yolo.preprocessing.yolo_preprocessor import YOLOPreprocessor
+from utils.data_package.yolo_det_data_package import YoloDetectionDataPackage
+
+
 class YOLOModel(ModelBase):
     def __init__(self):
         """
@@ -13,19 +19,16 @@ class YOLOModel(ModelBase):
         self.interpreter = None
         self.input_details = None
         self.output_details = None
-        self.preprocessor = None
-        self.postprocessor = None
+        self.preprocessor = YOLOPreprocessor()
+        self.postprocessor = YOLOPostprocessor()
+        self.data_package_type = YoloDetectionDataPackage
 
     def initialize(self, model_path,
-                   class_labels,
-                   preprocessor,
-                   postprocessor):
+                   class_labels):
         """
         Load the TFLite interpreter and initialize the input/output details.
         :param model_path: Path to the TFLite model file.
         """
-        self.preprocessor = preprocessor
-        self.postprocessor = postprocessor
 
         self.interpreter = Interpreter(model_path)
         self.interpreter.allocate_tensors()
@@ -58,5 +61,6 @@ class YOLOModel(ModelBase):
         output_data = [self.interpreter.get_tensor(detail['index']) for detail in self.output_details]
 
         # Postprocess the output data
-        predictions = self.postprocessor.process_output(output_data, orginal_dims)
+        predictions = self.postprocessor.postprocess(output_data, orginal_dims)
         return predictions
+
