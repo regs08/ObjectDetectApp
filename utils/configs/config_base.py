@@ -10,32 +10,60 @@ class Config(NamedEntity):
         """
         super().__init__()
         self._attributes = {}  # Internal dictionary to store configuration attributes
-        self.required_params = []  # Keywords required in the "params" dictionary
+        self.required_keys = []  # Keywords required in the "keys" dictionary
+        self.config_dict = None
         # Flatten the structure by removing the top-level key if it exists
-        if 'params' in kwargs:
-            self._attributes.update(kwargs['params'])
+        if 'keys' in kwargs:
+            self._attributes.update(kwargs['keys'])
         else:
             self._attributes.update(kwargs)
+        self.base_required_params = ['keys', 'type']
 
     def initialize(self, config_dict, name):
         """
         Initialize the configuration with a dictionary and a name.
         """
-        if self.required_params is None:
-            raise NotImplementedError("Must implement required params for config")
+        if self.required_keys is None:
+            raise NotImplementedError("Must implement required keys for config")
         self.name = name
-        self.from_dict(config_dict)
+        self.config_dict = config_dict
+        self.validate_config()
+        self.from_dict(self.config_dict)
         self.check_required_params()
+
+    def validate_config(self):
+        """
+        Validates that the YAML configuration only contains the allowed top-level keys.
+
+        :param config: The parsed YAML configuration (dict).
+        :return: None. Raises ValueError if validation fails.
+        """
+        allowed_top_keys = {'keys', 'type'}  # Define allowed top-level keys
+
+        # Check for unexpected top-level keys
+        for key in self.config_dict:
+            if key not in allowed_top_keys:
+                raise ValueError(f"Unexpected top-level key: '{key}'")
+
+        # Ensure 'params' is a dictionary
+        if 'keys' in self.config_dict and not isinstance(self.config_dict['keys'], dict):
+            raise ValueError("'keys' must be a dictionary")
+
+        # Ensure 'type' is a string
+        if 'type' in self.config_dict and not isinstance(self.config_dict['type'], str):
+            raise ValueError("'type' must be a string")
+
+
 
     def check_required_params(self):
         """
         Validate that all required keywords are present in the "params" dictionary.
         Raises an error if any required parameter is missing.
         """
-        params = list(self._attributes.keys())
-        missing_params = [param for param in self.required_params if param not in params]
-        if missing_params:
-            raise ValueError(f"Missing required parameters in 'params': {', '.join(missing_params)}")
+        keys = list(self._attributes.keys())
+        missing_keys = [key for key in self.required_keys if key not in keys]
+        if missing_keys:
+            raise ValueError(f"Missing required parameters in 'keys': {', '.join(missing_keys)}")
 
     def set(self, key, value):
         """Set a configuration attribute."""
@@ -74,8 +102,8 @@ class Config(NamedEntity):
         if not isinstance(input_dict, dict):
             raise ValueError("Input must be a dictionary.")
         # Flatten the structure by removing the top-level key if it exists
-        if 'params' in input_dict:
-            self._attributes.update(input_dict['params'])
+        if 'keys' in input_dict:
+            self._attributes.update(input_dict['keys'])
         else:
             self._attributes.update(input_dict)
 

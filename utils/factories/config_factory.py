@@ -14,6 +14,8 @@ class ConfigFactory:
             "ModelManager": ModelManagerConfig,
             "MqttManager": MqttManagerConfig,
             "YoloNCNNModel": YoloNCNNConfig,
+            "MqttSender": MqttClientConfig,
+            "MqttLogger": MqttClientConfig
         }
 
     def create_config(self, config_type, config_dict: dict) -> Config:

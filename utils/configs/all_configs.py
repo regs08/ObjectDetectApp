@@ -9,24 +9,28 @@ class AppManagerConfig(Config):
             **kwargs: Arbitrary keyword arguments to initialize attributes directly.
         """
         super().__init__(**kwargs)
-        self.required_params = ['ModelManager', 'StreamManager', 'MqttManager']
+        self.required_keys = ['ModelManager', 'StreamManager', 'MqttManager']
 
 class MqttManagerConfig(Config):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.required_params = ["client_types"]
+        self.required_keys = ["client_types"]
 
 class StreamManagerConfig(Config):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.required_params = ["source", "stream_type"]
+        self.required_keys = ["source", "stream_type"]
 
 class ModelManagerConfig(Config):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.required_params = ["model_config_path"]
+        self.required_keys = ["model_config_path"]
 class YoloNCNNConfig(Config):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.required_params = ["model_path", "confidence_threshold", "class_labels",
+        self.required_keys = ["model_path", "confidence_threshold", "class_labels",
                                 "type", "preprocessor", "postprocessor", 'task']
+class MqttClientConfig(Config):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.required_keys = ["client_types"]

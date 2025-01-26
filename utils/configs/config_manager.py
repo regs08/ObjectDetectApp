@@ -17,11 +17,6 @@ class ConfigManager:
         with open(config, 'r') as f:
             return yaml.safe_load(f)
 
-    def load_nested_config(self, path):
-        """Load a nested configuration from the specified YAML file."""
-        with open(path, 'r') as f:
-            return yaml.safe_load(f)
-
     def create_config_object(self, config_path=None, config_dict=None) -> Config:
         """
         Create a corresponding config object from a YAML file or dictionary.
@@ -38,7 +33,6 @@ class ConfigManager:
         """
         if not config_path and not config_dict:
             raise ValueError("Provide either `config_path` or `config_dict`.")
-
         # Load configuration from file if a path is provided
         if config_path:
             try:
@@ -52,10 +46,6 @@ class ConfigManager:
         config_type = config_dict['type']
         if not config_type:
             raise ValueError("The `type` field is missing from the configuration.")
-
-        # Debug output (replace with logging if needed)
-        print(f"Loaded config type: {config_type}")
-        print(f"Config dictionary: {config_dict}")
 
         # Create and return the configuration object
         return self.config_factory.create_config(config_type, config_dict)
