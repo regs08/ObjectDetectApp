@@ -45,6 +45,7 @@ class AppManager(BaseManager):
 
     def run(self):
         # starts inference thread
+            # self.start_threads()
         self.start_inference()
         # starts mqtt client thread
         self.mqtt_manager.run()
@@ -64,7 +65,7 @@ class AppManager(BaseManager):
 
         self.model_manager.initialize(self.model_manager_config)
         self.stream_manager.initialize(self.stream_manager_config)
-        self.mqtt_manager.initialize(self.mqtt_manager_config, client_type='Sender')
+        self.mqtt_manager.initialize(self.mqtt_manager_config, client_type='MqttSender')
 
     def create_and_check_config_objects(self, config_path):
         """
@@ -138,7 +139,7 @@ class AppManager(BaseManager):
         return DataPackage.empty().to_dict()
 
 
-    def display_stream(self, annotated_frame=None):
+    def display_stream(self):
         """
         Continuously display frames from the output queue or a test frame.
 
