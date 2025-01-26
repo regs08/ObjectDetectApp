@@ -1,10 +1,10 @@
 from app.base_classes.manager import BaseManager
+from utils.configs.config_base import Config
 from utils.factories.mqtt_client_factory import MqttClientFactory
 import threading
 from queue import Empty
 import time
 import json
-import os
 
 from utils.configs.config_manager import ConfigManager
 
@@ -24,12 +24,12 @@ class MQTTManager(BaseManager):
         self.batching_thread = None
         self.client_factory = MqttClientFactory()
 
-    def initialize(self, mqtt_config, client_type='Sender'):
-        print(type(mqtt_config))
-        if isinstance(mqtt_config, str):
-            assert os.path.exists(mqtt_config), "Path not found: {}".format(mqtt_config)
-            mqtt_config = self.config_manager.create_config_object(config_path=mqtt_config)
+    def initialize(self, mqtt_config: Config, client_type):
+
+        config_path = mqtt_config.get('sender')
+        mqtt_config = self.config_manager.create_config_object(config_path=config_path)
         # get the client type from the config
+
         # create client class from config type
         self.mqtt_client = self.client_factory.clients[client_type]()
         # assign the class' client to the managers client for readability
