@@ -1,5 +1,5 @@
 # App Manager Config
-params:
+keys:
     MqttManager: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/configs/mqtt_manager.yaml"
     ModelManager: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/configs/ultra_model_manager.yaml"
     StreamManager: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/configs/stream_manager.yaml"

@@ -1,5 +1,5 @@
 # Stream Manager
-params:
+keys:
   stream_type: "camera"
   source: 0
 type:

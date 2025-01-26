@@ -1,5 +1,5 @@
 # YOLO NCNN model config
-params:
+keys:
   model_path: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/detection_models/yolo11n_ncnn_model"
   type: "YoloNCNNModel"
   class_labels: "/Users/cole/PycharmProjects/ObjectDectectApp/assets/label_files/coco_classes.txt"
