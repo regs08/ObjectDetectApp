@@ -1,10 +1,24 @@
 
+
     todo build another classification model to test the robustness
     todo edit model and modelmanager logic to accomadate for ncnn 
-    todo create new gitrepo
     todo integrate the ultralytics script into the app
         update requirements.txt
+    todo put mqtt batching inside app manager?
+    todo create conifg template for .yaml -> have config checker check it
+        rework this its not picking up when the headings are different
+    todo implement a method that can use multiple mqtt clients
+
+     todo general robustness. have each manager be able to be run on its own
+
+    todone pick up on why mqtt clients aren't getting loaded
+    todone get rid of annoying messages during runtime
+    todone get rid of different model managers just have one with a factory
+
+    todone create new gitrepo
+    todone create factories for models and annotators
     todone have the modelmanager definition more implicit
+    todone finish setting up the mqtt script so that it can run and recieve messages independently
 
     todone create one central config manager. this will pass in the correct
      config object to the corresponding manager
